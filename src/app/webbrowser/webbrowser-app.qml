@@ -20,7 +20,7 @@ import QtQuick 2.5
 import QtQuick.Window 2.2
 import Qt.labs.settings 1.0
 import Ubuntu.Components 1.3
-import com.canonical.Oxide 1.15
+//import com.canonical.Oxide 1.15
 import "."
 import ".."
 import webbrowsercommon.private 0.1
@@ -42,7 +42,7 @@ QtObject {
             window.addTab(urls[i]).load()
             window.tabsModel.currentIndex = window.tabsModel.count - 1
         }
-        if (window.tabsModel.count == 0) {
+        if (window.tabsModel.count === 0) {
             window.addTab(incognito ? "" : settings.homepage).load()
             window.tabsModel.currentIndex = 0
         }
@@ -62,7 +62,7 @@ QtObject {
     function getLastActiveWindow(incognito) {
         for (var i = allWindows.length - 1; i >= 0; --i) {
             var window = allWindows[i]
-            if (window.incognito == incognito) {
+            if (window.incognito === incognito) {
                 return window
             }
         }
@@ -77,7 +77,7 @@ QtObject {
         for (var i in urls) {
             window.addTab(urls[i]).load()
         }
-        if (window.tabsModel.count == 0) {
+        if (window.tabsModel.count === 0) {
             window.addTab().load()
         }
         window.tabsModel.currentIndex = window.tabsModel.count - 1
@@ -194,10 +194,12 @@ QtObject {
                             "width": parent.width,
                         }
                     )
+
                     window.addTab()
                     window.tabsModel.currentIndex = 0
                     window.tabsModel.currentTab.load()
                     window.show()
+
                 }
                 onOpenLinkInWindowRequested: {
                     var window = null
@@ -220,6 +222,17 @@ QtObject {
                     window.show()
                     window.requestActivate()
                 }
+
+
+                onOpenLinkInNewTabRequested: {
+                    window.addTab(url);
+                    if (! background)
+                    {
+                        window.tabsModel.currentIndex = window.tabsModel.count - 1
+                        window.tabsModel.currentTab.load()
+                    }
+                }
+
 
                 // Not handled as a window-level shortcut as it would take
                 // precedence over key events in web content.
@@ -406,7 +419,7 @@ QtObject {
     property var applicationMonitor: Connections {
         target: Qt.application
         onStateChanged: {
-            if (Qt.application.state != Qt.ApplicationActive) {
+            if (Qt.application.state !== Qt.ApplicationActive) {
                 session.save()
             }
         }
@@ -476,5 +489,5 @@ QtObject {
         }
     }
 
-    Component.onCompleted: console.info("webbrowser-app using oxide %1 (chromium %2)".arg(Oxide.version).arg(Oxide.chromiumVersion))
+    //Component.onCompleted: console.info("webbrowser-app using oxide %1 (chromium %2)".arg(Oxide.version).arg(Oxide.chromiumVersion))
 }

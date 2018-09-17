@@ -17,10 +17,10 @@
  */
 
 import QtQuick 2.4
-import com.canonical.Oxide 1.15 as Oxide
+//import com.canonical.Oxide 1.15 as Oxide
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
-import Ubuntu.Web 0.2
+import QtWebEngine 1.5
 import "../actions" as Actions
 import ".."
 
@@ -31,10 +31,10 @@ WebViewImpl {
 
     signal openUrlExternallyRequested(string url)
 
-    filePicker: filePickerLoader.item
+    //filePicker: filePickerLoader.item
 
     property QtObject contextModel: null
-    contextualActions: ActionList {
+    /*contextualActions: ActionList {
         Actions.OpenLinkInBrowser {
             objectName: "OpenLinkInBrowser"
             enabled: contextModel && contextModel.linkUrl.toString()
@@ -127,7 +127,7 @@ WebViewImpl {
             onTriggered: executeEditingCommand(Oxide.WebView.EditingCommandSelectAll)
             objectName: "SelectAllContextualAction"
         }
-    }
+    }*/
     function contextMenuOnCompleted(menu) {
         if (!menu || !menu.contextModel) {
             return
@@ -165,7 +165,7 @@ WebViewImpl {
             Component.onCompleted: webappWebview.contextMenuOnCompleted(this)
         }
     }
-    contextMenu: webappWebview.wide ? contextMenuWideComponent : contextMenuNarrowComponent
+    /*contextMenu: webappWebview.wide ? contextMenuWideComponent : contextMenuNarrowComponent
 
     onGeolocationPermissionRequested: {
         if (__runningConfined && (request.origin == request.embedder)) {
@@ -175,7 +175,7 @@ WebViewImpl {
         } else {
             requestGeolocationPermission(request)
         }
-    }
+    }*/
 
     Loader {
         id: contentHandlerLoader

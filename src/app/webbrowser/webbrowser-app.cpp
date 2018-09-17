@@ -43,6 +43,9 @@
 #include <QtQml/QQmlProperty>
 #include <QtQml/QtQml>
 #include <QtQuick/QQuickWindow>
+//#include <QtWebEngine/qtwebengineglobal.h>
+
+#include <stdlib.h>
 
 WebbrowserApp::WebbrowserApp(int& argc, char** argv)
     : BrowserApplication(argc, argv)
@@ -80,7 +83,25 @@ bool WebbrowserApp::initialize()
     qmlRegisterType<TextSearchFilterModel>(uri, 0, 1, "TextSearchFilterModel");
     qmlRegisterSingletonType<Reparenter>(uri, 0, 1, "Reparenter", Reparenter_singleton_factory);
 
-    if (BrowserApplication::initialize("webbrowser/webbrowser-app.qml", QStringLiteral("webbrowser-app"))) {
+    QString qmlfile;
+    const QString filePath = QLatin1String("share/webbrowser-ng/webbrowser/webbrowser-ng.qml");
+    QStringList paths = QStandardPaths::standardLocations(QStandardPaths::DataLocation);
+    paths.prepend(QDir::currentPath());
+    paths.prepend(QCoreApplication::applicationDirPath());
+    Q_FOREACH (const QString &path, paths) {
+        QString myPath = path + QLatin1Char('/') + filePath;
+        if (QFile::exists(myPath)) {
+            qmlfile = myPath;
+            break;
+        }
+    }
+    // sanity check
+    if (qmlfile.isEmpty()) {
+        qFatal("File: %s does not exist at any of the standard paths!", qPrintable(filePath));
+}
+    if (BrowserApplication::initialize(qmlfile, QStringLiteral("webbrowser-ng"))) {
+        //QtWebEngine::initialize();
+
         QStringList searchEnginesSearchPaths;
         searchEnginesSearchPaths << QStandardPaths::writableLocation(QStandardPaths::DataLocation) + "/searchengines";
         searchEnginesSearchPaths << UbuntuBrowserDirectory() + "/webbrowser/searchengines";
@@ -147,7 +168,11 @@ void WebbrowserApp::onNewInstanceLaunched(const QStringList& arguments) const
 
 int main(int argc, char** argv)
 {
+    qputenv("QTWEBENGINE_DISABLE_SANDBOX","1");
+    qputenv("QT_WEBENGINE_DISABLE_GPU","1");
+
     QCoreApplication::setAttribute(Qt::AA_ShareOpenGLContexts);
+    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     WebbrowserApp app(argc, argv);
     if (app.initialize()) {
         return app.run();

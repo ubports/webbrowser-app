@@ -1,3 +1,9 @@
+webbrowser-app (0.25+ubports) xenial; urgency=medium
+
+  * Move to QtWebEngine
+
+ -- Bjarne Roß <nfsprodriver@t-online.de>  Mon, 17 Sep 2018 14:12:10 +0200
+
 webbrowser-app (0.24+ubports) xenial; urgency=medium
 
   * Imported to UBports

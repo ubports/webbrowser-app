@@ -20,18 +20,20 @@ import QtQuick 2.4
 import Ubuntu.Components 1.3
 import Ubuntu.Components.ListItems 1.3 as ListItems
 import Ubuntu.Components.Popups 1.3 as Popups
-import com.canonical.Oxide 1.8 as Oxide
+import QtWebEngine 1.5
+//import com.canonical.Oxide 1.8 as Oxide
 
 Popups.Dialog {
     id: contextMenu
 
-    property QtObject contextModel: model
+    //property QtObject contextModel: model
     property ActionList actions: null
+    property var titleContent
 
     QtObject {
         id: internal
-        readonly property bool isImage: (contextModel.mediaType === Oxide.WebView.MediaTypeImage) ||
-                                        (contextModel.mediaType === Oxide.WebView.MediaTypeCanvas)
+        readonly property bool isImage: false //(contextModel.mediaType === Oxide.WebView.MediaTypeImage) ||
+                                        //(contextModel.mediaType === Oxide.WebView.MediaTypeCanvas)
     }
 
     Row {
@@ -65,7 +67,8 @@ Popups.Dialog {
         Label {
             id: title
             objectName: "titleLabel"
-            text: contextModel.srcUrl.toString() ? contextModel.srcUrl : contextModel.linkUrl
+            text: titleContent
+            //text: contextModel.srcUrl.toString() ? contextModel.srcUrl : contextModel.linkUrl
             width: parent.width - units.gu(4)
             anchors {
                 top: parent.top
@@ -142,12 +145,14 @@ Popups.Dialog {
         }
         onTriggered: contextMenu.hide()
     }
-
+    
+    /*
     onVisibleChanged: {
         if (!visible) {
             contextModel.close()
         }
     }
+    */
 
     // adjust default dialog visuals to custom requirements for the context menu
     Binding {
@@ -164,5 +169,5 @@ Popups.Dialog {
     // We can’t prevent the dialog from stealing the focus from
     // the webview, but we can at least restore it when the
     // dialog is closed (https://launchpad.net/bugs/1526884).
-    Component.onDestruction: Oxide.WebView.view.forceActiveFocus()
+    //Component.onDestruction: Oxide.WebView.view.forceActiveFocus()
 }
