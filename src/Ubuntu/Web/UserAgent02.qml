@@ -17,7 +17,6 @@
  */
 
 import QtQml 2.0
-import com.canonical.Oxide 1.15
 
 /*
  * Useful documentation:
@@ -55,7 +54,7 @@ QtObject {
     // See chromium/src/content/webkit_version.h.in in oxide’s source tree.
     readonly property string _webkitVersion: "537.36"
 
-    readonly property string _chromiumVersion: Oxide.chromiumVersion
+    readonly property string _chromiumVersion: "65.0.3325.151" // TODO figure out how to get this
 
     readonly property string _formFactor: screenSize === "small" ? "Mobile" : ""
 

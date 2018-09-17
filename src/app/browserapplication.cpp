@@ -30,6 +30,7 @@
 #include <QtQml/QQmlEngine>
 #include <QtQml/QQmlProperty>
 #include <QtQml/QtQml>
+#include <QtWebEngine>
 
 // local
 #include "browserapplication.h"
@@ -47,6 +48,7 @@ BrowserApplication::BrowserApplication(int& argc, char** argv)
 {
     m_arguments = arguments();
     m_arguments.removeFirst();
+    QtWebEngine::initialize();
 }
 
 BrowserApplication::~BrowserApplication()
