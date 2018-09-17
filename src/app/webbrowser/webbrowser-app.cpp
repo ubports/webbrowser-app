@@ -43,7 +43,7 @@
 #include <QtQml/QQmlProperty>
 #include <QtQml/QtQml>
 #include <QtQuick/QQuickWindow>
-//#include <QtWebEngine/qtwebengineglobal.h>
+#include <QtWebEngine/qtwebengineglobal.h>
 
 #include <stdlib.h>
 
@@ -100,7 +100,7 @@ bool WebbrowserApp::initialize()
         qFatal("File: %s does not exist at any of the standard paths!", qPrintable(filePath));
 }
     if (BrowserApplication::initialize(qmlfile, QStringLiteral("webbrowser-ng"))) {
-        //QtWebEngine::initialize();
+        QtWebEngine::initialize();
 
         QStringList searchEnginesSearchPaths;
         searchEnginesSearchPaths << QStandardPaths::writableLocation(QStandardPaths::DataLocation) + "/searchengines";

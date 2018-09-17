@@ -29,6 +29,7 @@ add_library(${WEBBROWSER_APP_MODELS} STATIC ${WEBBROWSER_APP_MODELS_SRC})
 target_link_libraries(${WEBBROWSER_APP_MODELS}
     Qt5::Core
     Qt5::Sql
+    Qt5::WebEngine
 )
 
 set(WEBBROWSER_APP_SRC

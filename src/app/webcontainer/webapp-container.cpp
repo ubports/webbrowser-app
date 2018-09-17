@@ -44,6 +44,7 @@
 #include <QtQml/QQmlProperty>
 #include <QtQml>
 #include <QtQuick/QQuickWindow>
+#include <QtWebEngine/qtwebengineglobal.h>
 
 #include <stdlib.h>
 
@@ -142,7 +143,7 @@ bool WebappContainer::initialize()
         qFatal("File: %s does not exist at any of the standard paths!", qPrintable(filePath));
 }
     if (BrowserApplication::initialize(qmlfile, QStringLiteral("webapp-ng"))) {
-        //QtWebEngine::initialize();
+        QtWebEngine::initialize();
 
         parseCommandLine();
         parseExtraConfiguration();

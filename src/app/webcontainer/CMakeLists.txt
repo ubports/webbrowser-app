@@ -2,6 +2,7 @@ project(webapp-container)
 
 find_package(Qt5DBus REQUIRED)
 find_package(Qt5Sql REQUIRED)
+find_package(Qt5WebEngine REQUIRED)
 
 include_directories(
     ${CMAKE_BINARY_DIR}
@@ -34,6 +35,7 @@ target_link_libraries(${WEBAPP_CONTAINER}
     Qt5::Qml
     Qt5::Quick
     Qt5::Sql
+    Qt5::WebEngine
     ${COMMONLIB}
 )
 
