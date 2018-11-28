@@ -1,3 +1,9 @@
+webbrowser-app has been replaced by morph-browser in never versions of Ubuntu
+Touch. See https://github.com/ubports/morph-browser for its source code and
+issue tracking.
+
+
+
 webbrowser-app is a lightweight web browser tailored for Ubuntu,
 based on the Oxide web engine and using the Ubuntu UI components.
 It requires Qt 5.5 to build and run.
